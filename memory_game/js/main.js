@@ -30,15 +30,26 @@ var checkForMatch = function () {
 		alert("Sorry, try again.");
 	}
 };
-var flipCard = function (cardID) {
-	console.log("User flipped " + cards[cardID].rank);
+var flipCard = function () {
+	var cardID = this.getAttribute("data-id");
+	this.setAttribute("src", cards[cardID].cardImage);
+	console.log("User flipped " + cards[cardID].rank); /*leaving for debug purposes */
 	cardsInPlay.push(cards[cardID].rank);
 	console.log("Player flipped " + cards[cardID].suit + " at " + cards[cardID].cardImage );
 	checkForMatch();
 };
 
-flipCard(0);
-flipCard(1);
+var createBoard = function () {
+	for (i = 0; i < cards.length; i++) {
+		var cardElement = document.createElement("img");
+		cardElement.setAttribute("src", "images/back.png");
+		cardElement.setAttribute("data-id", i);
+		cardElement.addEventListener("click", flipCard);
+		document.getElementById("game-board").appendChild(cardElement);
+	}
+}
+
+createBoard();
 
 
 
